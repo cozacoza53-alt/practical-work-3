@@ -3,16 +3,12 @@ import { filterUsers, sortUsers } from "./utils.js";
 
 async function main() {
     try {
-        // Завантажуємо користувачів
         const users = await getUsers();
 
-        // Фільтруємо за містом
         const filteredUsers = filterUsers(users, "Gwenborough");
 
-        // Сортуємо за ім'ям
         const sortedUsers = sortUsers(filteredUsers);
 
-        // Виводимо результат на сторінку
         const list = document.getElementById("users");
 
         sortedUsers.forEach(user => {
@@ -26,7 +22,12 @@ async function main() {
         console.log(sortedUsers);
 
     } catch (error) {
-        console.error("Не вдалося виконати програму:", error);
+    console.error("Не вдалося виконати програму:", error);
+    const list = document.getElementById("users");
+    list.innerHTML = "";
+    const li = document.createElement("li");
+    li.textContent = "Помилка: " + error.message;
+    list.appendChild(li);
     }
 }
 

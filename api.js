@@ -1,20 +1,18 @@
-
 export async function getUsers() {
+    let response;
     try {
-        const response = await fetch(
-            "https://jsonplaceholder.typicode.com/users"
-        );
-
-        if (!response.ok) {
-            throw new Error("Помилка завантаження даних");
-        }
-
-        const users = await response.json();
-
-        return users;
-
+        response = await fetch("https://jsonplaceholder.typicode.com/users");
     } catch (error) {
-        console.error("Помилка:", error.message);
-        throw error;
+        throw new Error("Мережева помилка: не вдалося з'єднатися з сервером");
+    }
+
+    if (!response.ok) {
+        throw new Error("Помилка сервера: " + response.status);
+    }
+
+    try {
+        return await response.json();
+    } catch (error) {
+        throw new Error("Отримано невалідний JSON");
     }
 }

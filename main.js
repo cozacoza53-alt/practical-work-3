@@ -1,14 +1,9 @@
 import { getUsers } from "./api.js";
-import { filterUsers, sortUsers } from "./utils.js";
-
+import { sortUsers } from "./utils.js";
 async function main() {
     try {
         const users = await getUsers();
-
-        const filteredUsers = filterUsers(users, "Gwenborough");
-
-        const sortedUsers = sortUsers(filteredUsers);
-
+        const sortedUsers = sortUsers(users);
         const list = document.getElementById("users");
 
         sortedUsers.forEach(user => {
